@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.speed">
 
+<<<<<<< HEAD
     <uses-feature android:name="android.hardware.sensor.accelerometer"
         android:required="true" />
     <uses-permission android:name="SENSOR_INFO" />
@@ -20,12 +21,22 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/run"
+=======
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+>>>>>>> 1eacff2ca69854cc52ef9d9cf72bb0f82968d924
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+<<<<<<< HEAD
             android:name=".activity.StepDisplay"
             android:label="@string/title_activity_step_display"
+=======
+            android:name=".StepsActivity"
+            android:label="@string/app_name"
+>>>>>>> 1eacff2ca69854cc52ef9d9cf72bb0f82968d924
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,6 +44,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
 
         <service
             android:name=".service.Caculator"
@@ -42,6 +54,8 @@
 
         <receiver android:name=".receiver.AlarmReceiver" >
         </receiver>
+=======
+>>>>>>> 1eacff2ca69854cc52ef9d9cf72bb0f82968d924
     </application>
 
 </manifest>
