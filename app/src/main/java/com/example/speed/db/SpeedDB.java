@@ -48,7 +48,7 @@ public class SpeedDB {
     /*
     * 将产生步数的每分钟与对应步数存储到数据库
     * */
-    public void saveMinuteStep(MinuteStep minuteStep){
+    public synchronized void saveMinuteStep(MinuteStep minuteStep){
         if(minuteStep != null){
             ContentValues values = new ContentValues();
             values.put("minute",minuteStep.getMinute());

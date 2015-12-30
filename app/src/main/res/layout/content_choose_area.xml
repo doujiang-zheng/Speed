@@ -9,17 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activity.StepDisplay"
-    tools:showIn="@layout/activity_step_display">
-
-    <Button
-        android:id="@+id/step_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:text="10888步"
-        android:textSize="24sp"
-        />
+    tools:context="com.example.speed.activity.ChooseAreaActivity"
+    tools:showIn="@layout/activity_choose_area">
 
 </RelativeLayout>

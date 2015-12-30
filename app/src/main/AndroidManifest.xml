@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.speed">
 
-    <uses-feature android:name="android.hardware.sensor.accelerometer"
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
         android:required="true" />
+
     <uses-permission android:name="SENSOR_INFO" />
     <uses-permission android:name="android.permission.SENSOR_ENABLE" />
     <uses-permission android:name="android.permission.BODY_SENSORS" />
@@ -33,14 +35,21 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".activity.ChooseAreaActivity"
+            android:label="@string/title_activity_choose_area"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <service
             android:name=".service.Caculator"
-            android:enabled="true"
-            android:exported="true">
+            android:enabled="true">
         </service>
 
-        <receiver android:name=".receiver.AlarmReceiver" >
+        <receiver android:name=".receiver.AlarmReceiver">
+
         </receiver>
+
 
     </application>
 

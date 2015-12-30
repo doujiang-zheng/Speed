@@ -11,7 +11,7 @@ import android.view.View;
 import com.example.speed.R;
 import com.example.speed.service.Caculator;
 
-public class StepDisplay extends AppCompatActivity {
+public class StepMain extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

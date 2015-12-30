@@ -1,4 +1,4 @@
-package com.example.speed;
+package com.example.speed.activity;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,7 +18,9 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
-public class StepsActivity extends AppCompatActivity {
+import com.example.speed.R;
+
+public class StepDetail extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
