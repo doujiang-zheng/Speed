@@ -2,10 +2,14 @@ package com.example.speed.service;
 
 import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Binder;
@@ -13,7 +17,9 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 
+import com.example.speed.R;
 import com.example.speed.activity.StepMain;
 import com.example.speed.db.SpeedDB;
 import com.example.speed.db.SpeedHelper;
@@ -29,6 +35,7 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
+import    java.text.SimpleDateFormat;
 
 public class StepService extends Service{
     public static boolean serviceFlag = false;
@@ -62,6 +69,25 @@ public class StepService extends Service{
     @Override
     public void onCreate() {
         super.onCreate();
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd    hh:mm:ss");
+        String date = sDateFormat.format(new Date());
+        String message = sDateFormat.format(new Date()) + "  步数：" + Integer.toString(SELECTED_STEP);
+        Bitmap btm = BitmapFactory.decodeResource(getResources(), R.mipmap.run);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(StepService.this).setSmallIcon(R.mipmap.run)
+                           .setContentTitle("Speed").setContentText(message);
+                         mBuilder.setTicker("New message");//第一次提示消息的时候显示在通知栏上
+                         mBuilder.setNumber(12);
+                         mBuilder.setLargeIcon(btm);
+                         mBuilder.setAutoCancel(true);//自己维护通知的消失
+                         //构建一个Intent
+                         Intent resultIntent = new Intent(StepService.this, StepMain.class);
+                        //封装一个Intent
+                         PendingIntent resultPendingIntent = PendingIntent.getActivity(StepService.this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        // 设置通知主题的意图
+        mBuilder.setContentIntent(resultPendingIntent);
+        //获取通知管理器对象
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(0, mBuilder.build());
     }
 
     @Override

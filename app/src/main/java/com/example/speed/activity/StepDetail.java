@@ -29,9 +29,6 @@ public class StepDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         isFromMainActivity = getIntent().getBooleanExtra("from_main_activity", false);
         setContentView(R.layout.activity_step_detail);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
     }
 
     public void onBackPressed() {
