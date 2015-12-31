@@ -1,14 +1,25 @@
 package com.example.speed.activity;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.speed.R;
+import com.example.speed.db.SpeedDB;
+import com.example.speed.model.MinuteStep;
 import com.example.speed.service.StepService;
+
+import java.util.Date;
+import java.util.List;
+import java.util.logging.LogRecord;
 
 public class StepMain extends AppCompatActivity implements View.OnClickListener {
     private int VISIBILITY = 0;
@@ -16,6 +27,19 @@ public class StepMain extends AppCompatActivity implements View.OnClickListener 
     private Button calendar;
     private Button weather;
     private Button friends;
+
+    private StepService.StepBinder stepBinder;
+    private ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            updateStep();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +51,8 @@ public class StepMain extends AppCompatActivity implements View.OnClickListener 
         setSupportActionBar(toolbar);
 
         step = (Button) findViewById(R.id.step_button);
+        updateStep();
+
         calendar = (Button) findViewById(R.id.calendar_button);
         weather = (Button) findViewById(R.id.weather_button);
         friends = (Button) findViewById(R.id.friends_button);
@@ -35,6 +61,9 @@ public class StepMain extends AppCompatActivity implements View.OnClickListener 
         calendar.setOnClickListener(this);
         weather.setOnClickListener(this);
         friends.setOnClickListener(this);
+
+        Intent bindIntent = new Intent(this, StepService.class);
+        bindService(bindIntent, connection, BIND_AUTO_CREATE);
     }
 
     @Override
@@ -42,16 +71,21 @@ public class StepMain extends AppCompatActivity implements View.OnClickListener 
         Intent intent;
         switch (v.getId()) {
             case R.id.step_button:
+                updateStep();
                 VISIBILITY = (VISIBILITY + 1) % 2;
                 setVISIBILITY();
                 break;
             case R.id.calendar_button:
                 intent = new Intent(StepMain.this, StepDetail.class);
+                intent.putExtra("from_main_activity", true);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.weather_button:
                 intent = new Intent(StepMain.this, WeatherActivity.class);
+                intent.putExtra("from_main_activity", true);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.friends_button:
                 break;
@@ -70,5 +104,12 @@ public class StepMain extends AppCompatActivity implements View.OnClickListener 
             weather.setVisibility(View.VISIBLE);
             friends.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void updateStep() {
+        SpeedDB speedDB = SpeedDB.getInstance(StepMain.this);
+        int date_step = speedDB.loadDateStep(new Date(System.currentTimeMillis()));
+
+        step.setText(Integer.toString(date_step) + "步");
     }
 }

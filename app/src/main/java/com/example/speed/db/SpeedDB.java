@@ -50,7 +50,7 @@ public class SpeedDB {
     * */
     public synchronized boolean saveMinuteStep(MinuteStep minuteStep){
         if(minuteStep != null){
-            ContentValues values = new ContentValues();
+                      ContentValues values = new ContentValues();
             values.put("minute",minuteStep.getMinute());
             values.put("step", minuteStep.getStep());
             db.insert("MinuteStep", null, values);
@@ -64,6 +64,18 @@ public class SpeedDB {
     /*
     * 从数据库读取对应日期的步数
     * */
+    public int loadDateStep(Date date) {
+        List<MinuteStep> minuteSteps = loadMinuteStep(new Date(System.currentTimeMillis()));
+        int step = 0;
+        if (minuteSteps.size() >  0) {
+            for (int i = 0; i < minuteSteps.size(); i++) {
+                step += minuteSteps.get(i).getStep();
+            }
+        }
+
+        return step;
+    }
+
     public List<MinuteStep> loadMinuteStep(Date date) {
         List<MinuteStep> list = new ArrayList<MinuteStep>();
         /*
@@ -84,7 +96,7 @@ public class SpeedDB {
         /*
         * 数据库查询
         * */
-        Cursor cursor = db.rawQuery("select * from MinuteStep where"
+        Cursor cursor = db.rawQuery("select * from MinuteStep where "
                 + "minute>=? and minute<?",
                 new String[] {String.valueOf(startTime), String.valueOf(endTime)}
         );

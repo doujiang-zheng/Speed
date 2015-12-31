@@ -10,12 +10,7 @@ import android.hardware.SensorManager;
  * Created by 豆浆 on 2015-12-30.
  */
 public class ShakeListener implements SensorEventListener {
-    private static final int SPEED_SHRESHOLD = 1000;
-    private static final int UPDATE_INTERVAL_TIME = 70;
-
     public static int CURRENT_STEP = 0;
-    public static int STEP_COUNT = 0;
-    public static int STEP_DETECTOR = 0;
     public static float SENSITIVITY = 1.5f;
 
     private float lastValues[] = new float[3 * 2];

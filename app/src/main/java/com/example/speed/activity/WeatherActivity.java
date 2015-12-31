@@ -31,10 +31,12 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
     private TextView currentDateText;
     private Button switchCity;
     private Button refreshWeather;
+    private boolean isFromMainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isFromMainActivity = getIntent().getBooleanExtra("from_main_activity", false);
         setContentView(R.layout.activity_weather);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -151,5 +153,13 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
         currentDateText.setText(prefs.getString("current_date", ""));
         weatherInfoLayout.setVisibility(View.VISIBLE);
         cityNameText.setVisibility(View.VISIBLE);
+    }
+
+    public void onBackPressed() {
+            if (isFromMainActivity) {
+                Intent intent = new Intent(this, StepMain.class);
+                startActivity(intent);
+                finish();
+        }
     }
 }

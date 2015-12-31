@@ -38,18 +38,26 @@
         <activity
             android:name=".activity.ChooseAreaActivity"
             android:label="@string/title_activity_choose_area"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
 
         <service
             android:name=".service.StepService"
-            android:enabled="true"></service>
+            android:enabled="true">
 
-        <receiver android:name=".receiver.AlarmReceiver"></receiver>
+        </service>
+
+        <receiver android:name=".receiver.AlarmReceiver">
+
+        </receiver>
 
         <activity
             android:name=".activity.WeatherActivity"
             android:label="@string/title_activity_weather"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>
