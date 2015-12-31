@@ -7,4 +7,8 @@
     <string name="title_activity_weather">WeatherActivity</string>
     <string name="swtich_city">切换城市</string>
     <string name="refresh_weather">刷新天气</string>
+    <string name="detail">细节</string>
+    <string name="calendar">日历</string>
+    <string name="weather">天气</string>
+    <string name="friends">好友</string>
 </resources>

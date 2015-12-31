@@ -21,7 +21,7 @@ import java.util.TimeZone;
  * Created by 豆浆 on 2015-12-29.
  */
 public class SpeedDB {
-    public static final String DB_NAME = "speed";
+    public static final String DB_NAME = "Speed";
     public static final int VERSION = 1;
     private static SpeedDB speedDB;
     private SQLiteDatabase db;
@@ -48,13 +48,17 @@ public class SpeedDB {
     /*
     * 将产生步数的每分钟与对应步数存储到数据库
     * */
-    public synchronized void saveMinuteStep(MinuteStep minuteStep){
+    public synchronized boolean saveMinuteStep(MinuteStep minuteStep){
         if(minuteStep != null){
             ContentValues values = new ContentValues();
             values.put("minute",minuteStep.getMinute());
             values.put("step", minuteStep.getStep());
             db.insert("MinuteStep", null, values);
+
+            return true;
         }
+
+        return false;
     }
 
     /*

@@ -41,7 +41,7 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <service
-            android:name=".service.Caculator"
+            android:name=".service.StepService"
             android:enabled="true"></service>
 
         <receiver android:name=".receiver.AlarmReceiver"></receiver>
