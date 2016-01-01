@@ -89,7 +89,6 @@ public class StepService extends Service{
     @Override
     public void onCreate() {
         super.onCreate();
-        sendNotification();
     }
 
     @Override
@@ -139,7 +138,7 @@ public class StepService extends Service{
         }
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mSensorManager.registerListener(mShakeListener, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
+        mSensorManager.registerListener(mShakeListener, mSensor, SensorManager.SENSOR_DELAY_GAME);
 
         initUpdateThread();
         updateStepThread.start();
@@ -151,7 +150,11 @@ public class StepService extends Service{
             public void run() {
               while (serviceFlag) {
                   long currentMinute = getCurrentMinute();
-                  if (!(currentMinute > startMinute)) {
+                  
+                  /*
+                  * 进入下一分钟的时刻，重新计步并存储上一分钟的步数
+                  */
+                  if (currentMinute > startMinute) {
                       try {
                          saveMinuteStep();
                       } finally {
@@ -171,11 +174,12 @@ public class StepService extends Service{
         minuteStep.setMinute(startMinute);
         minuteStep.setStep(ShakeListener.CURRENT_STEP);
 
-        if (ShakeListener.CURRENT_STEP > 0)
+        if (ShakeListener.CURRENT_STEP > 0 && ShakeListenner.CURRENT_STEP < 200)
         {
             sendNotification();
             return speedDB.saveMinuteStep(minuteStep);
         }
+        
         return true;
     }
 
