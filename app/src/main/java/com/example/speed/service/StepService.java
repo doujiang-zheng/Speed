@@ -83,10 +83,7 @@ public class StepService extends Service{
     @Override
     public void onCreate() {
         super.onCreate();
-<<<<<<< HEAD
         sendNotification();
-=======
->>>>>>> 2acdd3fb7a8fffc27e96f49fb568fa4e4dc35909
     }
 
     @Override
@@ -136,11 +133,8 @@ public class StepService extends Service{
         }
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-<<<<<<< HEAD
         mSensorManager.registerListener(mShakeListener, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
-=======
         mSensorManager.registerListener(mShakeListener, mSensor, SensorManager.SENSOR_DELAY_GAME);
->>>>>>> 2acdd3fb7a8fffc27e96f49fb568fa4e4dc35909
 
         initUpdateThread();
         updateStepThread.start();
@@ -151,22 +145,16 @@ public class StepService extends Service{
           @Override
             public void run() {
               while (serviceFlag) {
-<<<<<<< HEAD
                   try {
                       sleep(1000);
                   } catch (InterruptedException e) {
                       e.printStackTrace();
                   }
                   long currentMinute = getCurrentMinute();
-                  if (!(currentMinute > startMinute)) {
-=======
-                  long currentMinute = getCurrentMinute();
-                  
                   /*
                   * 进入下一分钟的时刻，重新计步并存储上一分钟的步数
                   */
                   if (currentMinute > startMinute) {
->>>>>>> 2acdd3fb7a8fffc27e96f49fb568fa4e4dc35909
                       try {
                          saveMinuteStep();
                       } finally {
@@ -186,19 +174,12 @@ public class StepService extends Service{
         minuteStep.setMinute(startMinute);
         minuteStep.setStep(ShakeListener.CURRENT_STEP);
 
-<<<<<<< HEAD
-        if (ShakeListener.CURRENT_STEP > 0)
-=======
-        if (ShakeListener.CURRENT_STEP > 0 && ShakeListenner.CURRENT_STEP < 200)
->>>>>>> 2acdd3fb7a8fffc27e96f49fb568fa4e4dc35909
+        if (ShakeListener.CURRENT_STEP > 0 && ShakeListener.CURRENT_STEP < 200)
         {
             sendNotification();
             return speedDB.saveMinuteStep(minuteStep);
         }
-<<<<<<< HEAD
-=======
-        
->>>>>>> 2acdd3fb7a8fffc27e96f49fb568fa4e4dc35909
+
         return true;
     }
 

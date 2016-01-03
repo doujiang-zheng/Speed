@@ -17,30 +17,21 @@ import java.util.TimeZone;
  */
 public class ShakeListener implements SensorEventListener {
     public static int CURRENT_STEP = 0;
-<<<<<<< HEAD
-    public static float SENSITIVITY = 1.5f;
 
-    private static final int FREQUENCY = 3000;
-    private double[] acc = new double[3005];
-    private boolean[] accHigh = new boolean[3005];
-=======
+    public static float SENSITIVITY = 1.5f;
 
     private static final int FREQUENCY = 3000;
     private double[] acc = new double[3005];
     private double[] acc_smooth = new double[3005];
     private boolean[] accHigh = new boolean[3005];
-    
->>>>>>> 2acdd3fb7a8fffc27e96f49fb568fa4e4dc35909
+
     /*
     * 下标均以mod 3000 * 10 计算，使数组下标不会越界
     * */
     private int mode = 3005;
     private int current_end_index = -1;
-<<<<<<< HEAD
-    private long nextMinute = getCurrentMinute() + 60 * 1000;
-=======
+
     private long startMinute;
->>>>>>> 2acdd3fb7a8fffc27e96f49fb568fa4e4dc35909
 
     private SensorManager sensorManager;
     private Sensor sensor;
@@ -63,18 +54,12 @@ public class ShakeListener implements SensorEventListener {
             try {
                 sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
             } finally {
-<<<<<<< HEAD
+
                    stop();
             }
         }
 
-        for (int i = 1; i < mode; i++) {
-=======
-            }
-        }
-
         for (int i = 0; i < mode; i++) {
->>>>>>> 2acdd3fb7a8fffc27e96f49fb568fa4e4dc35909
             acc[i] = -1;
         }
         
@@ -104,20 +89,12 @@ public class ShakeListener implements SensorEventListener {
             gravity[2] = event.values[2];
 
             current_end_index++;
-<<<<<<< HEAD
             current_end_index %= mode;
             acc[current_end_index] = Math.sqrt(gravity[0] * gravity[0] + gravity[1] * gravity[1] + gravity[2] * gravity[2]);
 
             /*
             * 继续获取当前一分钟的加速度信息，否则进行步数计算并存储到数据库中
             * */
-            if(!(nextMinute > System.currentTimeMillis())) {
-                for(int i = 2; i < current_end_index - 2 && acc[i] >= 0; i++ ) {
-                    /*
-                    * 5点均值平滑去噪
-                    * */
-                    acc[i] = (acc[i - 2] + acc[i - 1] + acc[i] + acc[i + 1] + acc[i + 2]) / 5;
-=======
             if (current_end_index < mode) {
                 acc[current_end_index] = Math.sqrt(gravity[0] * gravity[0] + gravity[1] * gravity[1] + gravity[2] * gravity[2]);
             }
@@ -132,7 +109,6 @@ public class ShakeListener implements SensorEventListener {
                     * 5点均值平滑去噪
                     * */
                     acc_smooth[i] = smooth(i);
->>>>>>> 2acdd3fb7a8fffc27e96f49fb568fa4e4dc35909
                 }
 
                 for (int i = 0; i < current_end_index; i++) {
@@ -142,58 +118,17 @@ public class ShakeListener implements SensorEventListener {
                 /*
                 * 取最大最小值，防止k-means产生不好的结果
                 * */
-<<<<<<< HEAD
-                double max = acc[0], min = acc[0];
-                for(int i = 1; i < current_end_index; i++) {
-                    if(acc[i] > max)
-                        max = acc[i];
-                    if(acc[i] < min)
-                        min = acc[i];
-=======
                 double max = acc_smooth[0], min = acc_smooth[0];
                 for(int i = 1; i < current_end_index; i++) {
                     if(acc_smooth[i] > max)
                         max = acc_smooth[i];
                     if(acc_smooth[i] < min)
                         min = acc_smooth[i];
->>>>>>> 2acdd3fb7a8fffc27e96f49fb568fa4e4dc35909
                 }
 
                 /*
                 * 得到聚类的平均值
                 * */
-<<<<<<< HEAD
-                double high = max, low = min, high_average = 0, low_avergae = 0;
-                int high_size = 0, low_size = 0;
-                for(int i = 0; i < current_end_index; i++) {
-                    if (Math.abs(max - acc[i]) < Math.abs(acc[i] - min)) {
-                        high_average = high_average + acc[i];
-                        high_size++;
-                    } else {
-                        low_avergae = low_avergae + acc[i];
-                        low_size++;
-                    }
-                }
-                if (high_size != 0)
-                    high_average /= high_size;
-                if (low_size != 0)
-                    low_avergae /= low_size;
-
-                /*
-                * 去除正常行走所带来的伪波峰
-                * */
-                for (int i = 0; i < current_end_index; i++) {
-                    double min_creast = -(high_average - low_avergae) /2 + high_average;
-                    double max_creast = (high_average - low_avergae) / 2 + high_average;
-                    if(accHigh[i] && acc[i] > min_creast && acc[i] < max_creast) {
-                        CURRENT_STEP++;
-                    }
-                }
-                /*
-                * 计步结束，初始化加速度为-1，进行下一时间窗口统计
-                * */
-                nextMinute = getCurrentMinute() + 60 * 1000;
-=======
                 double high_average = 0, low_avergae = 0;
                 int high_size = 0, low_size = 0;
                 for(int i = 0; i < current_end_index; i++) {
@@ -225,7 +160,6 @@ public class ShakeListener implements SensorEventListener {
                 * 计步结束，初始化加速度为-1，进行下一时间窗口统计
                 * */
                 startMinute = getCurrentMinute();
->>>>>>> 2acdd3fb7a8fffc27e96f49fb568fa4e4dc35909
                 acc[0] = acc[current_end_index];
                 current_end_index = 0;
                 for (int i = 1; i < mode; i++) {
@@ -242,30 +176,6 @@ public class ShakeListener implements SensorEventListener {
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         long currentMinute = cal.getTimeInMillis();
-<<<<<<< HEAD
-
-        return currentMinute;
-    }
-
-    /*
-    * 判断是否波峰
-    * */
-    public boolean check(int index) {
-        int min = (index - 12 > 0) ? index - 12 : 0;
-        int max = (index + 12 < current_end_index) ? index + 12 : current_end_index;
-
-        for(int i = min; i < max; i++) {
-            if (acc[i] > acc[index] && acc[index] > 0)
-                return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-=======
->>>>>>> 2acdd3fb7a8fffc27e96f49fb568fa4e4dc35909
 
         return currentMinute;
     }
@@ -273,7 +183,7 @@ public class ShakeListener implements SensorEventListener {
     public double smooth(int index) {
         int min = (index - 2 > 0) ? index - 2 : 0;
         int max = (index + 2 < current_end_index) ? index + 3 : current_end_index;
-        double result;
+        double result = 0;
         
         for(int i = min; i < max; i++) {
             result += acc[i];
