@@ -50,7 +50,7 @@ public class SpeedDB {
     * */
     public synchronized boolean saveMinuteStep(MinuteStep minuteStep){
         if(minuteStep != null){
-                      ContentValues values = new ContentValues();
+            ContentValues values = new ContentValues();
             values.put("minute",minuteStep.getMinute());
             values.put("step", minuteStep.getStep());
             db.insert("MinuteStep", null, values);

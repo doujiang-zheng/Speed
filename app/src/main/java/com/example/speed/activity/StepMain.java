@@ -28,19 +28,6 @@ public class StepMain extends AppCompatActivity implements View.OnClickListener 
     private Button weather;
     private Button friends;
 
-    private StepService.StepBinder stepBinder;
-    private ServiceConnection connection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            updateStep();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +48,6 @@ public class StepMain extends AppCompatActivity implements View.OnClickListener 
         calendar.setOnClickListener(this);
         weather.setOnClickListener(this);
         friends.setOnClickListener(this);
-
-        Intent bindIntent = new Intent(this, StepService.class);
-        bindService(bindIntent, connection, BIND_AUTO_CREATE);
     }
 
     @Override
