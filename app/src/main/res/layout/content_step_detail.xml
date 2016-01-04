@@ -3,14 +3,32 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <CalendarView
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:textSize="24sp"/>
+
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/calendar"
-        android:layout_gravity="center_horizontal" />
-    <ListView
-        android:id="@+id/detail_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
+        android:rowCount="2">
+
+               <CalendarView
+            android:layout_row="0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/calendar"
+                   android:visibility="gone"/>
+
+        <ListView
+            android:layout_row="1"
+            android:id="@+id/minute_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="50dp">
+        </ListView>
+    </GridLayout>
+
 </LinearLayout>

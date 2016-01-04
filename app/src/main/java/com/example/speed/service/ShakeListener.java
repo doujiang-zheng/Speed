@@ -200,7 +200,7 @@ public class ShakeListener implements SensorEventListener {
         int max = (index + 12 < current_end_index) ? index + 13 : current_end_index;
 
         for(int i = min; i < max; i++) {
-            if (acc_smooth[i] >= acc_smooth[index])
+            if (acc_smooth[i] > acc_smooth[index])
                 return false;
         }
 

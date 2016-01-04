@@ -80,9 +80,9 @@ public class StepMain extends AppCompatActivity implements View.OnClickListener 
 
     private void setVISIBILITY() {
         if (VISIBILITY == 0) {
-            calendar.setVisibility(View.INVISIBLE);
-            weather.setVisibility(View.INVISIBLE);
-            friends.setVisibility(View.INVISIBLE);
+            calendar.setVisibility(View.GONE);
+            weather.setVisibility(View.GONE);
+            friends.setVisibility(View.GONE);
         } else {
             calendar.setVisibility(View.VISIBLE);
             weather.setVisibility(View.VISIBLE);

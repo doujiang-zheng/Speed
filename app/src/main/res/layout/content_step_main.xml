@@ -26,7 +26,7 @@
             android:gravity="center"
             android:text="@string/calendar"
             android:textSize="24sp"
-              />
+              android:visibility="gone"/>
         <Button
             android:id="@+id/weather_button"
             android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
             android:gravity="center"
             android:text="@string/weather"
             android:textSize="24sp"
-             />
+             android:visibility="gone"/>
         <Button
             android:id="@+id/friends_button"
             android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
             android:gravity="center"
             android:text="@string/friends"
             android:textSize="24sp"
-             />
+             android:visibility="gone"/>
     </GridLayout>
     <Button
         android:id="@+id/step_button"

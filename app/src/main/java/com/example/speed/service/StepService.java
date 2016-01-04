@@ -157,6 +157,11 @@ public class StepService extends Service{
                   if (currentMinute > startMinute) {
                       try {
                          saveMinuteStep();
+                          try {
+                              sleep(1000);
+                          } catch (InterruptedException e) {
+                              e.printStackTrace();
+                          }
                       } finally {
                           startMinute = getCurrentMinute();
                           ShakeListener.CURRENT_STEP = 0;
@@ -174,6 +179,7 @@ public class StepService extends Service{
         minuteStep.setMinute(startMinute);
         minuteStep.setStep(ShakeListener.CURRENT_STEP);
 
+        sendNotification();
         if (ShakeListener.CURRENT_STEP > 0 && ShakeListener.CURRENT_STEP < 200)
         {
             sendNotification();
